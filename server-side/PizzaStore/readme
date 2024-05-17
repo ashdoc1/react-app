@@ -1,0 +1,3 @@
+for container building 
+
+change aspnet version to 6.0 in Dockerfile and .csproj file
