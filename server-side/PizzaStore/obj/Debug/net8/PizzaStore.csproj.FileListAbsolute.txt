@@ -23,3 +23,4 @@
 /Users/ashg/Downloads/project/server-side/PizzaStore/obj/Debug/net8/PizzaStore.pdb
 /Users/ashg/Downloads/project/server-side/PizzaStore/obj/Debug/net8/PizzaStore.genruntimeconfig.cache
 /Users/ashg/Downloads/project/server-side/PizzaStore/obj/Debug/net8/ref/PizzaStore.dll
+/Users/ashg/Downloads/project/server-side/PizzaStore/obj/Debug/net8/PizzaStore.sourcelink.json

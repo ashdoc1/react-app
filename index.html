@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Client</title>
+</head>
+<body>
+    <h1>Menu</h1>
+    <ul id="menu"></ul>
+    <script>
+        const socket = new WebSocket('ws://localhost:5000/ws-menu');
+
+        socket.onopen = () => {
+            console.log('Connected to WebSocket server');
+        };
+
+        socket.onmessage = (event) => {
+            const menu = JSON.parse(event.data);
+            const menuList = document.getElementById('menu');
+            menuList.innerHTML = ''; // Clear existing menu
+            menu.items.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.textContent = item;
+                menuList.appendChild(listItem);
+            });
+        };
+
+        socket.onclose = () => {
+            console.log('Disconnected from WebSocket server');
+        };
+
+        socket.onerror = (error) => {
+            console.error('WebSocket error:', error);
+        };
+    </script>
+</body>
+</html>
