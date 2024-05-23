@@ -44,4 +44,4 @@ const PizzaList = () => {
   );
 };
 
-export default PizzaList;
+// export default PizzaList;

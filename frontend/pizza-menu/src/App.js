@@ -10,7 +10,7 @@ const App = () => {
                 <Joke />
             </div>
             <div>
-                <PizzaList />
+                <PizzaMenu />
             </div>
         </div>
     )
