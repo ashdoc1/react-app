@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pizzastore-fr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pizzastore-fr
+  template:
+    metadata:
+      labels:
+        app: pizzastore-fr
+    spec:
+      containers:
+      - name: pizzastore-fr
+        image: gcr.io/gke-proj-1-394220/pizzastore-frontend:v1.86
+        ports:
+        - containerPort: 80
