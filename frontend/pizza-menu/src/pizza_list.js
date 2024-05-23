@@ -6,7 +6,7 @@ const PizzaList = () => {
   const [isWsConnected, setIsWsConnected] = useState(false);
 
   useEffect(() => {
-    const socket = io('ws://localhost:5000/ws-menu');
+    const socket = io('ws://www.agstyahomes.com/ws-menu');
 
     socket.on('connect', () => {
       console.log('Connected to WebSocket server');
@@ -25,7 +25,7 @@ const PizzaList = () => {
 
   const handleWsGetPizzaList = () => {
     // Send a message to the server to request the pizza list
-    const socket = io('ws://localhost:5000/ws-menu');
+    const socket = io('ws://www.agstyahomes.com/ws-menu');
     socket.emit('getPizzaList');
   };
 
