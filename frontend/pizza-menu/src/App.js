@@ -1,7 +1,8 @@
 // import React, { useState, useEffect } from 'react';
 // import axios from 'axios';
 import Joke from './joke';
-import PizzaList from './pizza_list';
+// import PizzaList from './pizza_list';
+import PizzaMenu from  './pizzamenu'
 
 const App = () => {
     return (
