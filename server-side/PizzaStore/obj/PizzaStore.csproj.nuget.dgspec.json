@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/ashg/Downloads/project/server-side/PizzaStore/PizzaStore.csproj": {}
+    "/home/ashishgoelhr/react-app/server-side/PizzaStore/PizzaStore.csproj": {}
   },
   "projects": {
-    "/Users/ashg/Downloads/project/server-side/PizzaStore/PizzaStore.csproj": {
+    "/home/ashishgoelhr/react-app/server-side/PizzaStore/PizzaStore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/ashg/Downloads/project/server-side/PizzaStore/PizzaStore.csproj",
+        "projectUniqueName": "/home/ashishgoelhr/react-app/server-side/PizzaStore/PizzaStore.csproj",
         "projectName": "PizzaStore",
-        "projectPath": "/Users/ashg/Downloads/project/server-side/PizzaStore/PizzaStore.csproj",
-        "packagesPath": "/Users/ashg/.nuget/packages/",
-        "outputPath": "/Users/ashg/Downloads/project/server-side/PizzaStore/obj/",
+        "projectPath": "/home/ashishgoelhr/react-app/server-side/PizzaStore/PizzaStore.csproj",
+        "packagesPath": "/home/ashishgoelhr/.nuget/packages/",
+        "outputPath": "/home/ashishgoelhr/react-app/server-side/PizzaStore/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/ashg/.nuget/NuGet/NuGet.Config"
+          "/home/ashishgoelhr/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8"
@@ -32,11 +32,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -61,7 +56,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.103/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

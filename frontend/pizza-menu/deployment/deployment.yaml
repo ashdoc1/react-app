@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: pizzastore-fr
-        image: gcr.io/gke-proj-1-394220/pizzastore-frontend:v1.87
+        image: gcr.io/gke-proj-1-394220/pizzastore-frontend:v1.88
         ports:
         - containerPort: 80
