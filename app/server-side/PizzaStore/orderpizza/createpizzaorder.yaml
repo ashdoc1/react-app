@@ -1,0 +1,59 @@
+openapi: 3.0.0
+info:
+  title: Pizza Order API
+  version: 1.0.0
+  description: API for managing pizza orders
+paths:
+  /api/orders:
+    post:
+      summary: Create Pizza Order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrderDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    CreateOrderDto:
+      type: object
+      properties:
+        PizzaName:
+          type: string
+      required:
+        - PizzaName
+    OrderResponse:
+      type: object
+      properties:
+        OrderId:
+          type: string
+          format: uuid
+        Status:
+          type: string
+      required:
+        - OrderId
+        - Status
+    Error:
+      type: object
+      properties:
+        message:
+          type: string

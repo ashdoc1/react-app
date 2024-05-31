@@ -1,0 +1,46 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: example-ingress
+  annotations:
+    # Use GCP's managed certificate for HTTPS
+    networking.gke.io/managed-certificates: my-managed-cert
+    kubernetes.io/ingress.class: "gce"
+    kubernetes.io/ingress.global-static-ip-name: ingress-ep
+spec:
+  rules:
+  - host: www.agstyahomes.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: notif-fr
+            port:
+              number: 80
+      - path: /menu
+        pathType: Prefix
+        backend:
+          service:
+            name: notification
+            port:
+              number: 80
+      - path: /ws-notif
+        pathType: Prefix
+        backend:
+          service:
+            name: notification
+            port:
+              number: 80
+      - path: /api/orders
+        pathType: Prefix
+        backend:
+          service:
+            name: orderpizza
+            port:
+              number: 80
+  # tls:
+  # - hosts:
+  #   - agstyahomes.com
+  #   secretName: tls-secret

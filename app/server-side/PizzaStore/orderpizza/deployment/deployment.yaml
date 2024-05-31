@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orderpizza
+  labels:
+    app: orderpizza
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: orderpizza
+  template:
+    metadata:
+      labels:
+        app: orderpizza
+    spec:
+      nodeSelector:
+        iam.gke.io/gke-metadata-server-enabled: "true"
+      serviceAccount: sa-orderpizza
+      containers:
+      - name: orderpizza
+        image: gcr.io/gke-proj-1-394220/orderpizza-backend:v1.4
+        ports:
+        - containerPort: 8080
+
+---
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: sa-orderpizza
+  namespace: default
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orderpizza
+spec:
+  selector:
+    app: orderpizza
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+  # type: LoadBalancer
+  type: NodePort

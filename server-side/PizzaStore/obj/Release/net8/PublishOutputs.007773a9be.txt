@@ -1,7 +1,0 @@
-/Users/ashg/Downloads/project/server-side/PizzaStore/bin/Release/net8/publish/PizzaStore
-/Users/ashg/Downloads/project/server-side/PizzaStore/bin/Release/net8/publish/appsettings.Development.json
-/Users/ashg/Downloads/project/server-side/PizzaStore/bin/Release/net8/publish/appsettings.json
-/Users/ashg/Downloads/project/server-side/PizzaStore/bin/Release/net8/publish/PizzaStore.dll
-/Users/ashg/Downloads/project/server-side/PizzaStore/bin/Release/net8/publish/PizzaStore.deps.json
-/Users/ashg/Downloads/project/server-side/PizzaStore/bin/Release/net8/publish/PizzaStore.runtimeconfig.json
-/Users/ashg/Downloads/project/server-side/PizzaStore/bin/Release/net8/publish/PizzaStore.pdb
