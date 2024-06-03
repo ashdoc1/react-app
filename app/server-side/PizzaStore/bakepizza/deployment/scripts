@@ -1,0 +1,9 @@
+# kubectl create serviceaccount sa-orderpizza --namespace default
+
+gcloud projects add-iam-policy-binding projects/gke-proj-1-394220 \
+    --role=roles/pubsub.publisher \
+    --role=roles/pubsub.subscriber \
+    --member=principal://iam.googleapis.com/projects/567673134110/locations/global/workloadIdentityPools/gke-proj-1-394220.svc.id.goog/subject/ns/default/sa/sa-bakepizza \
+    --condition=None
+
+terraforn apply

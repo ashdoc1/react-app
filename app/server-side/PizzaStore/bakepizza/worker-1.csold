@@ -1,0 +1,120 @@
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Google.Cloud.PubSub.V1;
+using Google.Protobuf;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+
+public class Worker : BackgroundService
+{
+    private readonly ILogger<Worker> _logger;
+    private readonly string psProjectId;
+    private readonly string orderSubscriptionId;
+    private SubscriberClient _subscriberClient;
+    private readonly string notificationTopicId;
+
+    public Worker(ILogger<Worker> logger)
+    {
+        _logger = logger;
+       // Console.log("baker service - worker constructor ")
+        // Get environment variables
+        psProjectId = Environment.GetEnvironmentVariable("PS_PROJECT_ID");
+        orderSubscriptionId = Environment.GetEnvironmentVariable("ORDER_SUBSCRIPTION_ID");
+
+        _logger.LogInformation($"PS_PROJECT_ID: {psProjectId}");
+
+        // Validate environment variables
+        if (string.IsNullOrEmpty(psProjectId))
+        {
+            throw new ArgumentException("Environment variable PS_PROJECT_ID is not set.");
+        }
+        if (string.IsNullOrEmpty(orderSubscriptionId))
+        {
+            throw new ArgumentException("Environment variable ORDER_SUBSCRIPTION_ID is not set.");
+        }
+    }
+
+    public override async Task StartAsync(CancellationToken cancellationToken)
+    {
+        _subscriberClient = await SubscriberClient.CreateAsync(SubscriptionName.FromProjectSubscription(psProjectId, orderSubscriptionId));
+        await base.StartAsync(cancellationToken);
+    }
+
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        await _subscriberClient.StartAsync(async (PubsubMessage message, CancellationToken ct) =>
+        {
+            _logger.LogInformation($"Received message: {message.Data.ToStringUtf8()}");
+            // Process the message
+          //  await Task.Delay(1000, ct); // Simulate some processing
+            string orderId = message.Data.ToStringUtf8();
+
+            for (int i = 0; i < 5; i++)
+            {
+                string messageText;
+                string status;
+                switch (i)
+                {
+                    case 0:
+                        messageText = $"Order {orderId} is preparing.";
+                        status = "preparing";
+                        break;
+                    case 1:
+                        messageText = $"Order {orderId} is baking.";
+                        status = "baking";
+                        break;
+                    case 2:
+                        messageText = $"Order {orderId} is packing.";
+                        status = "packing";
+                        break;
+                    case 3:
+                        messageText = $"Order {orderId} is ready for delivery.";
+                        status = "ready-for-delivery";
+                        break;
+                    case 4:
+                        messageText = $"Order {orderId} is out for delivery.";
+                        status = "out-for-delivery";
+                        break;
+                    default:
+                        messageText = $"Order {orderId} is unknown.";
+                        status = "unknown";
+                        break;
+                }
+                _logger.LogInformation(messageText);
+
+                // Create a JSON object with order ID, status, and timestamp
+                var orderStatus = new
+                {
+                    orderId = orderId,
+                    status = status,
+                    timestamp = DateTime.UtcNow
+                };
+
+                // Serialize the JSON object to a string
+                var jsonOrderStatus = JsonConvert.SerializeObject(orderStatus);
+
+                // Create a new Pub/Sub message with the JSON string as data
+                var pubsubMessage = new PubsubMessage
+                {
+                    Data = ByteString.CopyFromUtf8(jsonOrderStatus)
+                };
+
+                // Publish the message to the topic
+                await _subscriberClient.PublishAsync(pubsubMessage);
+
+                await Task.Delay(2000, ct); // Simulate some processing
+
+            }            
+            return SubscriberClient.Reply.Ack;
+        });
+
+        await Task.Delay(Timeout.Infinite, stoppingToken); // Keep the background service running
+    }
+
+    public override async Task StopAsync(CancellationToken cancellationToken)
+    {
+        await _subscriberClient.StopAsync(cancellationToken);
+        await base.StopAsync(cancellationToken);
+    }
+}

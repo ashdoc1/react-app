@@ -1,3 +1,10 @@
 #create zonal one node gke cluster
 
 gcloud beta container --project "gke-proj-1-394220" clusters create "cluster-1" --no-enable-basic-auth --cluster-version "1.28.8-gke.1095000" --release-channel "regular" --machine-type "e2-medium" --image-type "COS_CONTAINERD" --disk-type "pd-balanced" --disk-size "100" --metadata disable-legacy-endpoints=true --scopes "https://www.googleapis.com/auth/devstorage.read_only","https://www.googleapis.com/auth/logging.write","https://www.googleapis.com/auth/monitoring","https://www.googleapis.com/auth/servicecontrol","https://www.googleapis.com/auth/service.management.readonly","https://www.googleapis.com/auth/trace.append" --num-nodes "1" --logging=SYSTEM,WORKLOAD --monitoring=SYSTEM --enable-ip-alias --network "projects/gke-proj-1-394220/global/networks/default" --subnetwork "projects/gke-proj-1-394220/regions/europe-west2/subnetworks/default" --no-enable-intra-node-visibility --default-max-pods-per-node "110" --security-posture=standard --workload-vulnerability-scanning=disabled --no-enable-master-authorized-networks --addons HorizontalPodAutoscaling,HttpLoadBalancing,GcePersistentDiskCsiDriver --enable-autoupgrade --enable-autorepair --max-surge-upgrade 1 --max-unavailable-upgrade 0 --binauthz-evaluation-mode=DISABLED --enable-managed-prometheus --enable-shielded-nodes --node-locations "europe-west2-a"
+
+
+
+gcloud projects add-iam-policy-binding projects/gke-proj-1-394220 \
+    --role=roles/pubsub.subscriber \
+    --member=principal://iam.googleapis.com/projects/567673134110/locations/global/workloadIdentityPools/gke-proj-1-394220.svc.id.goog/subject/ns/default/sa/sa-notification \
+    --condition=None

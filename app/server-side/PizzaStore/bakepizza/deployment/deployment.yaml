@@ -1,47 +1,51 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: notification
+  name: bakepizza
+  labels:
+    app: bakepizza
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: notification
+      app: bakepizza
   template:
     metadata:
       labels:
-        app: notification
+        app: bakepizza
     spec:
       nodeSelector:
         iam.gke.io/gke-metadata-server-enabled: "true"
-      serviceAccount: sa-notification
+      serviceAccount: sa-bakepizza
       containers:
-      - name: notification
-        image: gcr.io/gke-proj-1-394220/notif-backend:v2.23
+      - name: bakepizza
+        image: gcr.io/gke-proj-1-394220/bakepizza:v1.2
         ports:
-        - containerPort: 5000
+        - containerPort: 8080
         env:
         - name: PS_PROJECT_ID
           value: "gke-proj-1-394220"
-        - name: NOTIF_SUBSCRIPTION_ID
-          value: "notification-subscription" 
+        - name: ORDER_SUBSCRIPTION_ID
+          value: "order-subscription" 
         - name: NOTIF_TOPIC_ID
-          value: "notification"
+          value: "notification"    
 
 ---
+
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: sa-notification
+  name: sa-bakepizza
   namespace: default
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: notification
+  name: bakepizza
 spec:
   selector:
-    app: notification
+    app: bakepizza
   ports:
   - protocol: TCP
     port: 80

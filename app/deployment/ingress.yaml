@@ -19,13 +19,13 @@ spec:
             name: notif-fr
             port:
               number: 80
-      - path: /menu
-        pathType: Prefix
-        backend:
-          service:
-            name: notification
-            port:
-              number: 80
+      # - path: /menu
+      #   pathType: Prefix
+      #   backend:
+      #     service:
+      #       name: notification
+      #       port:
+      #         number: 80
       - path: /ws-notif
         pathType: Prefix
         backend:
