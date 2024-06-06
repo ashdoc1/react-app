@@ -6,3 +6,5 @@ dist-ssr
 login
 project-1
 project.code-workspace
+app/server-side/PizzaStore/orderpizza/bin/
+app/server-side/PizzaStore/orderpizza/obj/

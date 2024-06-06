@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: notif-fr
-        image: gcr.io/gke-proj-1-394220/notif-frontend:v1.55
+        image: gcr.io/gke-proj-1-394220/notif-frontend:v1.70
         ports:
         - containerPort: 80
 ---

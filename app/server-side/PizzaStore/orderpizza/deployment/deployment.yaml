@@ -19,7 +19,7 @@ spec:
       serviceAccount: sa-orderpizza
       containers:
       - name: orderpizza
-        image: gcr.io/gke-proj-1-394220/orderpizza-backend:v1.4
+        image: gcr.io/gke-proj-1-394220/orderpizza-backend:v1.5
         ports:
         - containerPort: 8080
 
